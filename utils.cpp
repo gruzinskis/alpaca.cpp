@@ -17,30 +17,18 @@
 
 bool gpt_params_parse(int argc, char ** argv, gpt_params & params) {
     for (int i = 1; i < argc; i++) {
+        
+        // this versio is hardcoded to be used in prompt not interactive mode..
+        params.interactive = false;
+        params.interactive_start = false;
+        params.use_color = false;
+
         std::string arg = argv[i];
 
         if (arg == "-s" || arg == "--seed") {
             params.seed = std::stoi(argv[++i]);
         } else if (arg == "-t" || arg == "--threads") {
-            params.n_threads = std::stoi(argv[++i]);
-        } else if (arg == "-p" || arg == "--prompt") {
-            params.interactive = false;
-            params.interactive_start = false;
-            params.use_color = false;
-
-            params.prompt = argv[++i];
-        } else if (arg == "-f" || arg == "--file") {
-
-            params.interactive = false;
-            params.interactive_start = false;
-            params.use_color = false;
-
-            std::ifstream file(argv[++i]);
-
-            std::copy(std::istreambuf_iterator<char>(file),
-                    std::istreambuf_iterator<char>(),
-                    back_inserter(params.prompt));
-                
+            params.n_threads = std::stoi(argv[++i]);         
         } else if (arg == "-n" || arg == "--n_predict") {
             params.n_predict = std::stoi(argv[++i]);
         } else if (arg == "--top_k") {
@@ -59,13 +47,6 @@ bool gpt_params_parse(int argc, char ** argv, gpt_params & params) {
             params.n_batch = std::stoi(argv[++i]);
         } else if (arg == "-m" || arg == "--model") {
             params.model = argv[++i];
-        } else if (arg == "-i" || arg == "--interactive") {
-            params.interactive = true;
-        } else if (arg == "--interactive-start") {
-            params.interactive = true;
-            params.interactive_start = true;
-        } else if (arg == "--color") {
-            params.use_color = true;
         } else if (arg == "-r" || arg == "--reverse-prompt") {
             params.antiprompt = argv[++i];
         } else if (arg == "-h" || arg == "--help") {

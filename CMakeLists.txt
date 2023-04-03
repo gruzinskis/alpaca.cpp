@@ -118,6 +118,9 @@ add_library(ggml
     ggml.c
     ggml.h)
 
+find_package(Crow)
+target_link_libraries(chat PUBLIC Crow::Crow)
+
 target_compile_definitions(ggml PUBLIC ${LLAMA_EXTRA_FLAGS})
 target_compile_definitions(chat PUBLIC ${LLAMA_EXTRA_FLAGS})
 target_compile_definitions(quantize PUBLIC ${LLAMA_EXTRA_FLAGS})
