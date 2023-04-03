@@ -806,7 +806,7 @@ std::string processPrompt(std::mt19937 & rng,gpt_params & params, const std::str
     int64_t t_sample_us  = 0;
     int64_t t_predict_us = 0;
 
-    if(threads == nullptr){
+    if(threads != nullptr){
        params.n_threads = std::stoi(threads);
     }
     if(top_k != nullptr){
